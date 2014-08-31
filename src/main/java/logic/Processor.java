@@ -5,18 +5,21 @@ import java.io.FileNotFoundException;
 public class Processor {
 
     public static final String SOURCE_FILE = "source.txt";
+    private FileWordsReader fileWordsReader;
+    private WordProcessor wordsProcessor;
+    private WordsPrinter printer;
+    public Processor(FileWordsReader fileWordsReader, WordProcessor wordsProcessor, WordsPrinter printer) {
+        this.fileWordsReader = fileWordsReader;
+        this.wordsProcessor = wordsProcessor;
+        this.printer = printer;
+    }
 
     public void process(){
-        FileWordsReader fileWordsReader = null;
-        try {
-            fileWordsReader = new FileWordsReader(SOURCE_FILE);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        String s = fileWordsReader.readText();
-        WordProcessor wordProcessor =  new WordProcessor();
-
-
+        String text = fileWordsReader.readText();
+        Word[] latinWords = wordsProcessor.getLatinWords(text);
+        Word[] specialWords = wordsProcessor.getSpecialWords(text);
+        printer.printWords(latinWords);
+        printer.printWords(specialWords);
     }
 
 }

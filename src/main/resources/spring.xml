@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="FileWordsReader" class="logic.FileWordsReader" >
+        <constructor-arg name="fileName" value="${sourceFile}" />
+    </bean>
+
+    <bean id="wordProcessor" class="logic.WordProcessor" />
+
+    <bean id="processor" class="logic.Processor">
+        <constructor-arg name="fileWordsReader" ref="FileWordsReader" />
+        <constructor-arg name="wordsProcessor" ref="wordProcessor" />
+        <constructor-arg name="printer" ref="printer" />
+    </bean>
+
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="res.properties" />
+    </bean>
+
+    <bean id="printer" class="logic.WordsPrinter" />
+
+</beans>

@@ -19,7 +19,7 @@ public class Word {
         if (o == this)
             return true;
         Word that = (Word) o;
-        return that.equals(this);
+        return that.word == this.word;
     }
 
     public int hashCode() {
